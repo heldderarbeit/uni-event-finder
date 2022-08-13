@@ -27,18 +27,18 @@ export class ApiService {
 
   postEvent(data: UniEvent) {
     this.eventReq.event = data;
-    return this.http.post<any>("http://localhost:3600/api/event/", this.eventReq);
+    return this.http.post<any>("https://thawing-ravine-87621.herokuapp.com/api/event/", this.eventReq);
   }
   getEvent() {
-    return this.http.get<{ events: UniEvent[] }>("http://localhost:3600/api/event/");
+    return this.http.get<{ events: UniEvent[] }>("https://thawing-ravine-87621.herokuapp.com/api/event/");
   }
 
   putEvent(data: UniEvent, id: string) {
     this.eventReq.event = data;
-    return this.http.put("http://localhost:3600/api/event/" + id, this.eventReq);
+    return this.http.put("https://thawing-ravine-87621.herokuapp.com/api/event/" + id, this.eventReq);
   }
   deleteEvent(id: string) {
-    return this.http.delete<any>("http://localhost:3600/api/event/" + id);
+    return this.http.delete<any>("https://thawing-ravine-87621.herokuapp.com/api/event/" + id);
   }
 
   postProfile(data:Profile){
@@ -46,9 +46,9 @@ export class ApiService {
     if(data._id && data.user){
       this.profileReq.profile.is_International = String(this.profileReq.profile.is_International);
       this.profileReq.profile.need_Job = String(this.profileReq.profile.need_Job);
-      return this.http.put<any>("http://localhost:3600/api/profile/" + data.user, this.profileReq);
+      return this.http.put<any>("https://thawing-ravine-87621.herokuapp.com/api/profile/" + data.user, this.profileReq);
     }else{
-      return this.http.post<any>("http://localhost:3600/api/profile/", this.profileReq);
+      return this.http.post<any>("https://thawing-ravine-87621.herokuapp.com/api/profile/", this.profileReq);
     }
     
   }
@@ -60,17 +60,17 @@ export class ApiService {
         let userInterests = res.profile.interest_List.join(",");
         
         eventReqParams = eventReqParams.append("category", userInterests);
-        return this.http.get<{ events: UniEvent[] }>("http://localhost:3600/api/event/", { params: eventReqParams });
+        return this.http.get<{ events: UniEvent[] }>("https://thawing-ravine-87621.herokuapp.com/api/event/", { params: eventReqParams });
       }));
   }
 
   getUserProfile(userID: string): Observable<{ profile: Profile }> {
-    return this.http.get<{ profile: Profile }>("http://localhost:3600/api/profile/" + userID);
+    return this.http.get<{ profile: Profile }>("https://thawing-ravine-87621.herokuapp.com/api/profile/" + userID);
   }
 
 
   createUser(data:User){
     this.userReq.user=data;
-    return this.http.post<any>("http://localhost:3600/api/users/", this.userReq);
+    return this.http.post<any>("https://thawing-ravine-87621.herokuapp.com/api/users/", this.userReq);
   }
 }
